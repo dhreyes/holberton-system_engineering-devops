@@ -1,2 +1,2 @@
 #!/bin/bash
-file -m "HOLBERTON"
+file -m string "HOLBERTON"
