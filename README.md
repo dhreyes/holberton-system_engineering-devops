@@ -1,1 +1,1 @@
-This project will contain all the answers for 0x00-shell_basics project
+This repo will contain an assortment of projects beginning with 0x00-shell_basics
