@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # prints to 20 and badluck from 4, 9, 17 various countries
-i=0
+i=1
 while [ $i -lt 21 ]; do
 	echo "$i"
 	case $i in
