@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# prints to 20 and badluck from 4, 9, 17 various countries
+i=0
+while [ $i -le 20 ]; do
+	echo "$i"
+	case $i in
+		4)
+			echo "bad luck from China"
+			;;
+		9)
+			echo "bad luck from Japan"
+			;;
+		17)
+			echo "bad luck from Italy"
+			;;
+		esac
+	let "i += 1"
+done
