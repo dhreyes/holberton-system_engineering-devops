@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # prints to 20 and badluck from 4, 9, 17 various countries
 i=0
-while [ $i -le 20 ]; do
+while [ $i -lt 21 ]; do
 	echo "$i"
 	case $i in
 		4)
@@ -14,5 +14,5 @@ while [ $i -le 20 ]; do
 			echo "bad luck from Italy"
 			;;
 		esac
-	let "i += 1"
+		((i++))
 done
