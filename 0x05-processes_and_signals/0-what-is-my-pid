@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Show PID of bash script
+echo "$$"
