@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Make inf loop to print forever, resists Ctrl + c
+trap 'echo "I am invincible!!!"' SIGTERM
+i=0
+while [ $i -lt 1 ]; do
+	echo "To infinity and beyond"
+	sleep 2
+done
