@@ -15,6 +15,7 @@ if [[ $# -eq 1 ]]; then
 		;;
 		"restart")
 		kill "$(pgrep -of "manage_my_process")"
+		rm $file
 		./manage_my_process &
 		echo "$!" > $file
 		echo "manage_my_process restarted"
