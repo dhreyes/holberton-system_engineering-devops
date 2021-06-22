@@ -5,7 +5,7 @@ if [ $# -eq 1 ]; then
 	case $1 in
 		"start")
 		./manage_my_process &
-		echo $$ > $file
+		echo $! > $file
 		echo "manage_my_process started"
 		;;
 		"stop")
@@ -16,7 +16,7 @@ if [ $# -eq 1 ]; then
 		"restart")
 		kill $(pgrep -of "manage_my_process")
 		./manage_my_process &
-		echo $$ > $file
+		echo $! > $file
 		echo "manage_my_process restarted"
 		;;
 		*)
