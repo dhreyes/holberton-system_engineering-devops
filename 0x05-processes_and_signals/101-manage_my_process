@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Manages Daemon processes, huhahahauha
+file="/var/run/my_process.pid"
+if [ $# -eq 1 ]; then
+	case $1 in
+		"start")
+		./manage_my_process &
+		echo $$ > $file
+		echo "manage_my_process started"
+		;;
+		"stop")
+		kill $(pgrep -of "manage_my_process")
+		rm $file
+		echo "manage_my_process stopped"
+		;;
+		"restart")
+		kill $(pgrep -of "manage_my_process")
+		./manage_my_process &
+		echo $$ > $file
+		echo "manage_my_process restarted"
+		;;
+		*)
+		echo "Usage: manage_my_process {start|stop|restart}"
+		;;
+	esac
+else
+	echo "Usage: manage_my_process {start|stop|restart}"
+fi
