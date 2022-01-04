@@ -4,3 +4,4 @@ package { 'puppet-lint':
   provider => 'gem',
   source   => 'https://rubygems.org'
 }
+  provider => 'gem',
