@@ -1,18 +1,13 @@
 # Make sure 2 setting are in client SSH configuration file
-$path_conf = '/etc/ssh/ssh_config'
 
-file { $path_conf:
-  ensure => file,
-}
 file_line { 'Turn off passwd auth':
-  path    => $path_conf,
-  line    => 'PasswordAuthentication no',
-  match   => '^\s*PasswordAuthentication',
-  require => File[$path_conf],
+    ensure => 'present',
+    path   => '/etc/ssh/ssh_config',
+    line   => 'PasswordAuthentication no'
 }
+
 file_line { 'Declare identity file':
-  path    => $path_conf,
-  line    => 'IdentityFile ~/.ssh/holberton',
-  match   => '^\s*IdentityFile',
-  require => File[$path_conf],
+    ensure => 'present',
+    path   => '/etc/ssh/ssh_config',
+    line   => 'IdentityFile ~/.ssh/school'
 }
