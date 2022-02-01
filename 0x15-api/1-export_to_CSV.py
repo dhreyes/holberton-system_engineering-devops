@@ -15,8 +15,9 @@ if __name__ == "__main__":
     name = user.get('name')
     done = [title['title'] for title in todos
             if title['completed'] is True]
+    username = user.get('username')
 
     with open('{}.csv'.format(employee_id), 'w') as f:
         for todo in todos:
-            f.write('"{}","{}","{}","{}"\n'.format(employee_id, name,
-                                           todo['completed'], todo['title']))
+            f.write('"{}","{}","{}","{}"\n'.format(employee_id, username,
+                                                   todo['completed'], todo['title']))
