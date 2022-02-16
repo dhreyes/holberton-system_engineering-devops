@@ -13,12 +13,13 @@ import sys
 def number_of_subscribers(subreddit):
     """
     Returns the number of subscribers for a given subreddit
+    can handle special characters
     """
-    site = 'https://www.reddit.com/r/'
-    url = site + subreddit + '/about.json'
-    headers = {'User-Agent': 'Mozilla/5.0'}
-    r = requests.get(url, headers=headers)
-    if r.status_code == 200:
-        return r.json().get('data').get('subscribers')
-    else:
+    url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
+    headers = {'User-Agent': 'Chrome/78.0.3904.108'}
+    try:
+        r = requests.get(url, headers=headers)
+        r.raise_for_status()
+        return r.json()['data']['subscribers']
+    except:
         return 0
