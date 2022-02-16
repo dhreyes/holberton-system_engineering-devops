@@ -7,7 +7,8 @@ If an invalid subreddit is given, the function should return 0.
 Requirements:
 - Prototype: def number_of_subscribers(subreddit)
 - If not a valid subreddit, return 0
-- NOTE: Invalid subreddits may return a redirect to search results. Ensure that you are not following redirects
+- NOTE: Invalid subreddits may return a redirect to search results.
+Ensure that you are not following redirects
 """
 import requests
 import sys
