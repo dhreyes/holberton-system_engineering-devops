@@ -32,6 +32,13 @@ def recurse(subreddit, hot_list=[], after=None):
                             params=parameters, allow_redirects=False)
     if response.status_code in [302, 404]:
         return None
+    if r.status_code == 200:
+        data = r.json()
+        hot_list += [x['data']['title'] for x in data['data']['children']]
+        if data['data']['after'] is not None:
+            return recurse(subreddit, hot_list, data['data']['after'])
+        else:
+            return hot_list
     else:
         posts = response.json()['data']['children']
         after = response.json()['data']['after']
