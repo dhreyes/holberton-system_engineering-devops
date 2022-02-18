@@ -22,20 +22,21 @@ import json
 
 
 def recurse(subreddit, hot_list=[], after=None):
-    """Shows hot post"""
-    hot_post = []
     url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
-    agent = {'User-Agent': 'requested'}
-    parameters = {'after': after, 'limit': '100'}
-    response = requests.get(url, headers=agent,
-                            params=parameters, allow_redirects=False)
-    if response.status_code in [302, 404]:
+    headers = {
+            'User-Agent': 'linux:0x16.api.advanced:v1.0.0'
+            }
+    if after is not None:
+        url += '?after={}'.format(after)
+    r = requests.get(url, headers=headers)
+    if r.status_code == 404:
         return None
+    if r.status_code == 200:
+        data = r.json()
+        hot_list += [x['data']['title'] for x in data['data']['children']]
+        if data['data']['after'] is not None:
+            return recurse(subreddit, hot_list, data['data']['after'])
+        else:
+            return hot_list
     else:
-        posts = response.json()['data']['children']
-        after = response.json()['data']['after']
-        for hot in posts:
-            hot_list.append(hot)
-        if after is not None:
-            recurse(subreddit, hot_list, after)
-        return hot_list
+        return None
