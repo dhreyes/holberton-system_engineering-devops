@@ -34,7 +34,6 @@ def recurse(subreddit, hot_list=[], after=None):
     if r.status_code == 200:
         data = r.json()
         hot_list += [x['data']['title'] for x in data['data']['children']]
-        print(hot_list)
         if data['data']['after'] is not None:
             return recurse(subreddit, hot_list, data['data']['after'])
         else:
