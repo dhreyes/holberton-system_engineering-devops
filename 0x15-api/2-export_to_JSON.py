@@ -1,28 +1,30 @@
 #!/usr/bin/python3
-"""Gather data from an API and exports
-data in the JSON format"""
-import json
+"""Function to query a list of all hot posts on a given Reddit subreddit."""
 import requests
-import sys
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: ./0-gather_data_from_an_API.py <employee ID>")
-        exit()
-    
-    employee_id = sys.argv[1]
-    site = 'https://jsonplaceholder.typicode.com/'
-    user = requests.get(site + 'users/' + employee_id).json()
-    todos = requests.get(site + 'todos?userId=' + employee_id).json()
-    name = user.get('name')
-    done = [title['title'] for title in todos
-            if title['completed'] is True]
-    username = user.get('username')
-    outToDo = []
-    for todo in todos:
-        outToDo.append({'task': todo['title'],
-                        'completed': todo['completed'],
-                        'username': username})
-    out = {employee_id: {'name': name, 'todos': outToDo}}
-    with open('{}.json'.format(employee_id), 'w') as f:
-        json.dump(out, f)
+
+def recurse(subreddit, hot_list=[], after="", count=0):
+    """Returns a list of titles of all hot posts on a given subreddit."""
+    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
+    headers = {
+        "User-Agent": "linux:0x16.api.advanced:v1.0.0"
+    }
+    params = {
+        "after": after,
+        "count": count,
+        "limit": 100
+    }
+    response = requests.get(url, headers=headers, params=params,
+                            allow_redirects=False)
+    if response.status_code == 404:
+        return None
+
+    results = response.json().get("data")
+    after = results.get("after")
+    count += results.get("dist")
+    for c in results.get("children"):
+        hot_list.append(c.get("data").get("title"))
+
+    if after is not None:
+        return recurse(subreddit, hot_list, after, count)
+    return hot_list
